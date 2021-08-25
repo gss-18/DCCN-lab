@@ -66,11 +66,18 @@ for i in range(len(verb)):
         verb[i]=1
 print('Vertical Parity: ',' '.join(str(i) for i in verb)) 
 
+
+x=np.array(mat)
+y=np.array(matb)
 if(hor==horb and ver==verb):
     print('No error')
     print("Corrected Output: ",mat)
 else:
     print('Error exist')
+    z=(x[:None]==y).all(-1)
+    print(z)
+    i,j=np.where(z=='False')
+    print(x[i,j])
     print("Corrected Output: ",mat)
 
 
