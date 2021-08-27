@@ -1,6 +1,7 @@
 from collections import Counter
 import numpy as np
 
+
 a=int(input('Enter rows: '))
 mat=[]
 hor=[]
@@ -14,10 +15,13 @@ for i in range(len(mat)):
 
 for i in mat:
     x=dict(Counter(i))
-    if(x["1"]%2==0):
+    try:
+        if(x['1']%2==0):
+            hor.append('0')
+        else:
+            hor.append('1')
+    except: 
         hor.append('0')
-    else:
-        hor.append('1')
 
 print('Horizontal Parity',' '.join(hor)) 
 
@@ -34,6 +38,7 @@ for i in range(len(ver)):
 print('Vertical Parity',' '.join(str(i) for i in ver)) 
 
 print("\n \nRecieved Data: ")
+
 b=int(input("Enter rows: "))
 matb=[]
 horb=[]
@@ -48,15 +53,19 @@ for i in range(len(matb)):
 
 for i in matb:
     x=dict(Counter(i))
-    if(x["1"]%2==0):
+    try:
+        if(x["1"]%2==0):
+            horb.append('0')
+        else:
+            horb.append('1')
+    except:
         horb.append('0')
-    else:
-        horb.append('1')
 
 print('Horizontal Parity: ',' '.join(horb)) 
 
 for i in range(len(matb)):
     for j in range(len(matb[i])):
+       
         verb[i]+=int(matb[i][j])
 
 for i in range(len(verb)):
@@ -67,24 +76,12 @@ for i in range(len(verb)):
 print('Vertical Parity: ',' '.join(str(i) for i in verb)) 
 
 
-x=np.array(mat)
-y=np.array(matb)
+k=np.array(mat)
+
 if(hor==horb and ver==verb):
     print('No error')
-    print("Corrected Output: ",mat)
+    print("Correct Output: \n",k)
 else:
     print('Error exist')
-    z=(x[:None]==y).all(-1)
-    print(z)
-    i,j=np.where(z=='False')
-    print(x[i,j])
-    print("Corrected Output: ",mat)
+    print("Corrected Output: \n",k)
 
-
-""" 1 1 0  0
-1 0 0  1 
-1 1 1  1
-
-1 0  1
-
-1 1 1  1 """
